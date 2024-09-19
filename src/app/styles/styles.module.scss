@@ -1,0 +1,57 @@
+// styles.scss
+
+// Definindo variáveis de cores
+$background-color-transparent: #0000008A;
+$background-color: #000000;
+$button-gradient: linear-gradient(90deg, #0796D3 0%, #53C0F0 68.65%);
+$font-family: 'Inter Tight', sans-serif;
+
+// Estilos do layout
+.layout {
+  width: 284px;
+  height: 29px;
+  top: 3px;
+  left: 522px;
+  gap: 0px;
+  opacity: 0; // Definindo a opacidade
+}
+
+// Estilos de tipografia
+.typography {
+  font-family: $font-family;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 29.04px;
+  letter-spacing: -0.02em;
+  text-align: left;
+}
+
+// Estilos de cores
+.colors {
+  background: $background-color-transparent;
+  background: $background-color; // Definindo a cor de fundo
+}
+
+// Estilos para o logo
+.logo {
+  width: 150px;
+  height: 36px;
+  padding: 1.5px 0.25px 1.5px 0;
+  gap: 22px;
+  opacity: 1;
+}
+
+// Estilos do botão
+.button {
+  background: $button-gradient; // Aplicando o gradiente
+  width: 450px; // Largura fixa
+  height: 51px; // Altura fixa
+  top: 594px;
+  left: 495px;
+  border-radius: 8px;
+  padding: 16px 24px 16px 24px; // Padding
+  gap: 8px; // Espaçamento entre elementos
+  opacity: 1; // Definindo a opacidade do botão
+  color: white;
+  cursor: pointer;
+}
