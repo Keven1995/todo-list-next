@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Todo List
 
-## Getting Started
+Este é um aplicativo simples de gerenciamento de tarefas (Todo List) que permite aos usuários adicionar, completar e deletar tarefas. Abaixo estão as instruções sobre como usar e entender o funcionamento da aplicação.
 
-First, run the development server:
+## Funcionalidades
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Adicionar Tarefas**: O usuário pode adicionar novas tarefas à lista.
+- **Marcar Tarefas como Concluídas**: Tarefas podem ser marcadas como concluídas, alterando seu estado.
+- **Deletar Tarefas**: O usuário pode remover tarefas da lista.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Estrutura do Código
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Componentes Principais
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Home**: Componente principal que gerencia o estado das tarefas e renderiza a interface do usuário.
+2. **Header**: Exibe o cabeçalho da aplicação.
+3. **Modal**: Usado para adicionar novas tarefas.
+4. **ModalDelete**: Usado para confirmar a exclusão de tarefas.
 
-## Learn More
+### Estado das Tarefas
 
-To learn more about Next.js, take a look at the following resources:
+O estado das tarefas é gerenciado usando o Hook `useState` do React. As tarefas são armazenadas em um objeto, onde cada chave representa o nome da tarefa e o valor indica se ela foi concluída (`true` ou `false`).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```javascript
+const [tasks, setTasks] = useState<Record<string, boolean>>({
+  lavarAsMaos: false,
+  fazerBolo: false,
+  lavarLouca: false,
+  levarLixoParaFora: true,
+});
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Como Usar
 
-## Deploy on Vercel
+### Adicionar Tarefa:
+1. Clique no botão "Adicionar nova tarefa".
+2. Insira o nome da tarefa no modal e clique em "Adicionar".
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Marcar Tarefa como Concluída:
+- Clique na caixa de seleção ao lado da tarefa.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Deletar Tarefa:
+1. Clique no botão de deletar (ícone de lixo) ao lado da tarefa.
+2. Confirme a exclusão no modal que aparece.
+
+## Tecnologias Usadas
+- React
+- TypeScript
+- SCSS
