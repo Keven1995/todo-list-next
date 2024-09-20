@@ -1,74 +1,296 @@
-// styles.scss
-
-// Definindo variáveis de cores
-$background-color-transparent: #0000008A;
+$background-color-transparent: #0000008a;
 $background-color: #000000;
-$button-gradient: linear-gradient(90deg, #0796D3 0%, #53C0F0 68.65%);
-$font-family: 'Inter Tight', sans-serif;
+$button-gradient: linear-gradient(90deg, #0796d3 0%, #53c0f0 68.65%);
+$button-gradient2: linear-gradient(90deg, #d30707 100%, #f05353 100%);
+$button-gradient3: linear-gradient(#e7eefb);
+$font-family: "Inter Tight", sans-serif;
 
-// Estilos do layout
-.layout {
-  width: 284px;
-  height: 29px;
-  top: 3px;
-  left: 522px;
-  gap: 0px;
-  opacity: 0; // Definindo a opacidade
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
-// Estilos de tipografia
-.typography {
-  font-family: $font-family;
-  font-size: 24px;
-  font-weight: 500;
-  line-height: 29.04px;
-  letter-spacing: -0.02em;
-  text-align: left;
-}
-
-// Estilos de cores
-.colors {
-  background: $background-color-transparent;
-  background: $background-color; // Definindo a cor de fundo
-}
-
-// Estilos para o logo
-.logo {
-  width: 150px;
-  height: 36px;
-  padding: 1.5px 0.25px 1.5px 0;
-  gap: 22px;
-  opacity: 1;
-}
-
-// Estilos do botão
-.button {
-  background: $button-gradient; // Aplicando o gradiente
-  width: 450px; // Largura fixa
-  height: 51px; // Altura fixa
-  top: 594px;
-  left: 495px;
+.modalContent {
+  background: white;
   border-radius: 8px;
-  padding: 16px 24px 16px 24px; // Padding
-  gap: 8px; // Espaçamento entre elementos
-  opacity: 1; // Definindo a opacidade do botão
-  color: white;
-  cursor: pointer;
+  padding: 20px;
+  width: 100%;
+  max-width: 400px;
+  text-align: left;
+  position: relative;
+  margin: 0 auto;
+
+  .modalTitle {
+    color: #000000;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    margin-top: 0; // Para ajustar o espaço superior se necessário
+  }
+}
+
+.modalButtons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  gap: 15px;
+
+  .cancelButton {
+    @extend .buttoncancel; 
+    background: #e7eefb; 
+  }
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+// Modal de exclusão de tarefa
+.deleteModalContent {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  width: 100%;
+  max-width: 400px;
+  text-align: left;
+  position: relative;
+  margin: 0 auto;
+
+  .modalTitle {
+    color: #000000;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    margin-top: 0;
+  }
+
+  .modalMessage {
+    color: #0000008a;
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  .modalButtons {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+
+    @media (max-width: 480px) {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .cancelButton {
+      @extend .buttoncancel; // Utiliza as propriedades da classe .button
+      background: #e7eefb; // Mantém a cor original
+    }
+
+    .deleteButton {
+      @extend .buttondelete; // Utiliza as propriedades da classe .button
+      background: linear-gradient(
+        90deg,
+        #d30707 100%,
+        #f05353 100%
+      ); // Mantém a cor original
+      color: white; // Mantém a cor do texto
+    }
+  }
+}
+
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 60px;
+  padding: 0 20px;
+  border-bottom: 1px solid #e0e0e0;
+  position: relative;
+}
+
+.date {
+  font-family: $font-family;
+  font-size: 16px;
+  color: #333;
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .mainContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  padding: 40px;
+  width: 100%;
+  min-height: 100vh;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  @media (max-width: 768px) {
+    padding: 20px;
+    max-width: 100%;
+  }
+
+  @media (max-width: 480px) {
+    padding: 10px;
+  }
+}
+
+.welcomeMessage {
+  font-family: $font-family;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29.04px;
+  letter-spacing: -0.02em;
+  color: #000000;
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.layout {
+  opacity: 0;
+  width: 100%;
+}
+
+.typography {
+  font-family: $font-family;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 29.04px;
+  letter-spacing: -2%;
+  text-align: left;
+}
+
+.colors {
+  background: $background-color-transparent;
+}
+
+.logo {
+  width: 150px;
+  height: auto;
+  opacity: 1;
+}
+
+.task-title {
+  color: #333; // Define a cor do texto
+  font-family: $font-family; // Mantém a mesma fonte que você está usando
+  font-size: 24px; // Ajuste o tamanho se necessário
+  margin: 20px 0; // Ajusta a margem conforme necessário
+}
+
+
+
+.button {
+  background: $button-gradient;
+  width: 100%;
+  max-width: 450px;
+  height: 51px;
+  border-radius: 8px;
+  padding: 16px 24px;
+  color: white;
+  cursor: pointer;
+  text-align: center;
+  font-size: 16px;
+  margin-top: 10px;
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+    padding: 14px 20px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 12px;
+    padding: 12px 18px;
+  }
+}
+
+.buttoncancel {
+  background: $button-gradient3;
+  width: 100%;
+  max-width: 450px;
+  height: 51px;
+  border-radius: 8px;
+  padding: 16px 24px;
+  color: #000000;
+  cursor: pointer;
+  text-align: center;
+  font-size: 16px;
+  margin-top: 10px;
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+    padding: 14px 20px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 12px;
+    padding: 12px 18px;
+  }
+}
+.buttondelete {
+  background: $button-gradient2;
+  width: 100%;
+  max-width: 450px;
+  height: 51px;
+  border-radius: 8px;
+  padding: 16px 24px;
+  color: white;
+  cursor: pointer;
+  text-align: center;
+  font-size: 16px;
+  margin-top: 10px;
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+    padding: 14px 20px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 12px;
+    padding: 12px 18px;
+  }
 }
 
 .todoContainer {
-  background-color: #f9f9f9;
+  background-color:#FFFFFF;
+  ;
   border-radius: 10px;
-  padding: 20px;
-  width: 400px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
+  padding: 50px;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 5px #EAECF0;
+  margin-top: 80px;
+
+  @media (max-width: 768px) {
+    padding: 20px;
+    max-width: 100%;
+    margin-top: 40px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 10px;
+    width: 100%;
+    margin-top: 20px;
+  }
 }
 
 .taskItem {
@@ -80,6 +302,16 @@ $font-family: 'Inter Tight', sans-serif;
   padding: 10px;
   border-radius: 8px;
   margin-bottom: 10px;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    padding: 8px;
+  }
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    padding: 5px;
+  }
 }
 
 .taskItem input[type="checkbox"] {
@@ -91,12 +323,13 @@ $font-family: 'Inter Tight', sans-serif;
   flex-grow: 1;
   margin-left: 10px;
   color: #333;
+  border: #eaecf0;
 }
 
 .deleteButton {
   width: 20px;
   height: 20px;
-  background: url('/path-to-trash-icon.svg') no-repeat center center;
+  background: url("../images/trash.png") no-repeat center center;
   background-size: contain;
   border: none;
   cursor: pointer;
@@ -112,5 +345,54 @@ $font-family: 'Inter Tight', sans-serif;
 }
 
 .completedTask input[type="checkbox"] {
-  accent-color: #2196f3; /* Estilo do checkbox azul */
+  accent-color: #2196f3;
+}
+
+@media (max-width: 768px) {
+  .headerContainer {
+    padding: 0 10px;
+  }
+  .welcomeMessage {
+    font-size: 20px;
+  }
+  .date {
+    font-size: 14px;
+  }
+  .mainContainer {
+    padding: 20px;
+    width: 100%;
+  }
+  .todoContainer {
+    max-width: 90%;
+    padding: 20px;
+  }
+  .taskItem {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .headerContainer {
+    padding: 0 5px;
+  }
+  .welcomeMessage {
+    font-size: 18px;
+  }
+  .date {
+    font-size: 12px;
+  }
+  .mainContainer {
+    padding: 10px;
+  }
+  .todoContainer {
+    padding: 10px;
+    width: 100%;
+  }
+  .button {
+    font-size: 12px;
+    padding: 12px 18px;
+  }
+  .taskItem {
+    font-size: 14px;
+  }
 }

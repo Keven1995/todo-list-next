@@ -1,10 +1,11 @@
-"use client"; // Adiciona essa linha no topo
+"use client";
 
 import styles from "./styles/styles.module.scss";
 import Header from "../app/header/header";
 import { useState } from "react";
+import Modal from "../app/modal/Modal";
+import ModalDelete from "../app/modal/ModalDelete"; // Importando o modal de deletar
 
-// Defina um tipo para as chaves do objeto tasks
 type TaskKeys =
   | "lavarAsMaos"
   | "fazerBolo"
@@ -12,18 +13,17 @@ type TaskKeys =
   | "levarLixoParaFora";
 
 export default function Home() {
-  // Estado para gerenciar o estado dos checkboxes e tarefas
   const [tasks, setTasks] = useState<Record<string, boolean>>({
     lavarAsMaos: false,
     fazerBolo: false,
     lavarLouca: false,
-    levarLixoParaFora: true, // Essa já está marcada como completa
+    levarLixoParaFora: true,
   });
 
-  const [newTask, setNewTask] = useState("");
-  const [isInputVisible, setInputVisible] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [taskToDelete, setTaskToDelete] = useState<string | null>(null);
 
-  // Função para lidar com mudanças nos checkboxes
   const handleCheckboxChange = (task: string) => {
     setTasks((prevTasks) => ({
       ...prevTasks,
@@ -31,78 +31,93 @@ export default function Home() {
     }));
   };
 
-  const addTask = () => {
-    if (newTask.trim() !== "") {
-      const newTaskKey = newTask.replace(/\s+/g, '').toLowerCase(); // Remover espaços e converter para minúsculas
-      if (!(newTaskKey in tasks)) { // Verificar se a tarefa já existe
+  const addTask = (task: string) => {
+    const cleanedTask = task.trim().replace(/[^a-zA-Z\s]/g, "");
+    if (cleanedTask) {
+      const newTaskKey = cleanedTask.replace(/\s+/g, "").toLowerCase();
+      if (!(newTaskKey in tasks)) {
         setTasks((prevTasks) => ({
           ...prevTasks,
-          [newTaskKey]: false, // Adiciona a nova tarefa com estado inicial false
+          [newTaskKey]: false,
         }));
       }
-      setNewTask("");
-      setInputVisible(false);
     }
   };
 
-  const removeTask = (task: string) => {
-    const { [task]: _, ...remainingTasks } = tasks;
-    setTasks(remainingTasks);
+  const confirmDeleteTask = (task: string) => {
+    setTaskToDelete(task);
+    setDeleteModalOpen(true);
   };
 
-  const toggleInput = () => {
-    setInputVisible((prev) => !prev);
+  const deleteTask = () => {
+    if (taskToDelete) {
+      const { [taskToDelete]: _, ...remainingTasks } = tasks;
+      setTasks(remainingTasks);
+      setTaskToDelete(null);
+    }
+    setDeleteModalOpen(false);
   };
 
   return (
     <main className={styles.mainContainer}>
       <Header userName="João" />
       <div className={styles.todoContainer}>
-        <h2>Suas tarefas de hoje</h2>
+        <h2 className="task-title">Suas tarefas de hoje</h2>
 
-        {/* Lista de Tarefas */}
         {Object.keys(tasks).map((task) => (
           <div key={task} className={styles.taskItem}>
             <input
               type="checkbox"
+              id={task}
               checked={tasks[task]}
               onChange={() => handleCheckboxChange(task)}
             />
-            <span>{task.replace(/([A-Z])/g, ' $1')}</span>
-            <button className={styles.deleteButton} onClick={() => removeTask(task)}></button>
+            <label htmlFor={task}>{task.replace(/([A-Z])/g, " $1")}</label>
+            <button
+              className={styles.deleteButton}
+              onClick={() => confirmDeleteTask(task)}
+            ></button>
           </div>
         ))}
 
         <h2>Tarefas finalizadas</h2>
 
-        {/* Tarefas finalizadas */}
-        {Object.keys(tasks).filter(task => tasks[task]).map((task) => (
-          <div key={task} className={`${styles.taskItem} ${styles.completedTask}`}>
-            <input
-              type="checkbox"
-              checked={tasks[task]}
-              onChange={() => handleCheckboxChange(task)}
-            />
-            <span>{task.replace(/([A-Z])/g, ' $1')}</span>
-            <button className={styles.deleteButton} onClick={() => removeTask(task)}></button>
-          </div>
-        ))}
+        {Object.keys(tasks)
+          .filter((task) => tasks[task])
+          .map((task) => (
+            <div
+              key={task}
+              className={`${styles.taskItem} ${styles.completedTask}`}
+            >
+              <input
+                type="checkbox"
+                id={task}
+                checked={tasks[task]}
+                onChange={() => handleCheckboxChange(task)}
+              />
+              <label htmlFor={task}>{task.replace(/([A-Z])/g, " $1")}</label>
+              <button
+                className={styles.deleteButton}
+                onClick={() => confirmDeleteTask(task)}
+              ></button>
+            </div>
+          ))}
 
-        <button className={styles.button} onClick={toggleInput}>
-          {isInputVisible ? "Cancelar" : "Adicionar nova tarefa"}
+        <button className={styles.button} onClick={() => setModalOpen(true)}>
+          Adicionar nova tarefa
         </button>
 
-        {isInputVisible && (
-          <div>
-            <input
-              type="text"
-              value={newTask}
-              onChange={(e) => setNewTask(e.target.value)}
-              placeholder="Nova tarefa"
-            />
-            <button onClick={addTask}>Adicionar</button>
-          </div>
-        )}
+        <Modal
+          isOpen={isModalOpen}
+          onClose={() => setModalOpen(false)}
+          onAddTask={addTask}
+        />
+        
+        <ModalDelete
+          isOpen={isDeleteModalOpen}
+          onClose={() => setDeleteModalOpen(false)}
+          onDelete={deleteTask}
+        />
       </div>
     </main>
   );
