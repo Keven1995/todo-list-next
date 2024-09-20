@@ -55,3 +55,62 @@ $font-family: 'Inter Tight', sans-serif;
   color: white;
   cursor: pointer;
 }
+
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.todoContainer {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  padding: 20px;
+  width: 400px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.taskItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  border: 1px dashed #e0e0e0;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.taskItem input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+}
+
+.taskItem span {
+  flex-grow: 1;
+  margin-left: 10px;
+  color: #333;
+}
+
+.deleteButton {
+  width: 20px;
+  height: 20px;
+  background: url('/path-to-trash-icon.svg') no-repeat center center;
+  background-size: contain;
+  border: none;
+  cursor: pointer;
+}
+
+.taskHover:hover {
+  background-color: #f0f4ff;
+}
+
+.completedTask {
+  text-decoration: line-through;
+  color: #999;
+}
+
+.completedTask input[type="checkbox"] {
+  accent-color: #2196f3; /* Estilo do checkbox azul */
+}
