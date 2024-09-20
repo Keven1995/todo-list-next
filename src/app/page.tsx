@@ -45,8 +45,8 @@ export default function Home() {
 
   const deleteTask = () => {
     if (taskToDelete) {
-      const { [taskToDelete]: deletedTask, ...remainingTasks } = tasks;
-
+      const remainingTasks = { ...tasks };
+      delete remainingTasks[taskToDelete]; 
       setTasks(remainingTasks);
       setTaskToDelete(null);
     }
