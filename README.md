@@ -28,21 +28,26 @@ const [tasks, setTasks] = useState<Record<string, boolean>>({
   lavarLouca: false,
   levarLixoParaFora: true,
 });
+```
 
 ## Como Usar
 
 ### Adicionar Tarefa:
+
 1. Clique no botão "Adicionar nova tarefa".
 2. Insira o nome da tarefa no modal e clique em "Adicionar".
 
 ### Marcar Tarefa como Concluída:
+
 - Clique na caixa de seleção ao lado da tarefa.
 
 ### Deletar Tarefa:
+
 1. Clique no botão de deletar (ícone de lixo) ao lado da tarefa.
 2. Confirme a exclusão no modal que aparece.
 
 ## Tecnologias Usadas
+
 - React
 - TypeScript
 - SCSS
