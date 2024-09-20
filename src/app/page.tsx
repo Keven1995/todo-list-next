@@ -4,13 +4,7 @@ import styles from "./styles/styles.module.scss";
 import Header from "../app/header/header";
 import { useState } from "react";
 import Modal from "../app/modal/Modal";
-import ModalDelete from "../app/modal/ModalDelete"; // Importando o modal de deletar
-
-type TaskKeys =
-  | "lavarAsMaos"
-  | "fazerBolo"
-  | "lavarLouca"
-  | "levarLixoParaFora";
+import ModalDelete from "../app/modal/ModalDelete";
 
 export default function Home() {
   const [tasks, setTasks] = useState<Record<string, boolean>>({
@@ -51,7 +45,8 @@ export default function Home() {
 
   const deleteTask = () => {
     if (taskToDelete) {
-      const { [taskToDelete]: _, ...remainingTasks } = tasks;
+      const { [taskToDelete]: deletedTask, ...remainingTasks } = tasks;
+
       setTasks(remainingTasks);
       setTaskToDelete(null);
     }
@@ -112,7 +107,7 @@ export default function Home() {
           onClose={() => setModalOpen(false)}
           onAddTask={addTask}
         />
-        
+
         <ModalDelete
           isOpen={isDeleteModalOpen}
           onClose={() => setDeleteModalOpen(false)}

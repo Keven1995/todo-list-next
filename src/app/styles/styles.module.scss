@@ -34,7 +34,7 @@ $font-family: "Inter Tight", sans-serif;
     font-size: 18px;
     font-weight: 600;
     margin-bottom: 10px;
-    margin-top: 0; // Para ajustar o espaço superior se necessário
+    margin-top: 0; 
   }
 }
 
@@ -55,7 +55,7 @@ $font-family: "Inter Tight", sans-serif;
   }
 }
 
-// Modal de exclusão de tarefa
+
 .deleteModalContent {
   background: white;
   border-radius: 8px;
@@ -91,18 +91,18 @@ $font-family: "Inter Tight", sans-serif;
     }
 
     .cancelButton {
-      @extend .buttoncancel; // Utiliza as propriedades da classe .button
-      background: #e7eefb; // Mantém a cor original
+      @extend .buttoncancel;  
+      background: #e7eefb; 
     }
 
     .deleteButton {
-      @extend .buttondelete; // Utiliza as propriedades da classe .button
+      @extend .buttondelete; 
       background: linear-gradient(
         90deg,
         #d30707 100%,
         #f05353 100%
-      ); // Mantém a cor original
-      color: white; // Mantém a cor do texto
+      ); 
+      color: white; 
     }
   }
 }
@@ -187,10 +187,10 @@ $font-family: "Inter Tight", sans-serif;
 }
 
 .task-title {
-  color: #333; // Define a cor do texto
-  font-family: $font-family; // Mantém a mesma fonte que você está usando
-  font-size: 24px; // Ajuste o tamanho se necessário
-  margin: 20px 0; // Ajusta a margem conforme necessário
+  color: #333; 
+  font-family: $font-family; 
+  font-size: 24px; 
+  margin: 20px 0; 
 }
 
 
