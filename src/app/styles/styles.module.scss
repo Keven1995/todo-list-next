@@ -1,5 +1,6 @@
 $background-color-transparent: #0000008a;
-$background-color: #000000;
+$background-color: #00000000;
+$date-background-color: #00000000 54%;
 $button-gradient: linear-gradient(90deg, #0796d3 0%, #53c0f0 68.65%);
 $button-gradient2: linear-gradient(90deg, #d30707 100%, #f05353 100%);
 $button-gradient3: linear-gradient(#e7eefb);
@@ -11,8 +12,8 @@ $font-family: "Inter Tight", sans-serif;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(5px);
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,12 +30,30 @@ $font-family: "Inter Tight", sans-serif;
   position: relative;
   margin: 0 auto;
 
+  input[type="text"] {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+
   .modalTitle {
     color: #000000;
     font-size: 18px;
     font-weight: 600;
     margin-bottom: 10px;
-    margin-top: 0; 
+    margin-top: 0;
+    font-family: $font-family;
+  }
+
+  .modalSubTitle {
+    color: #000000;
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 10px;
+    margin-top: 0;
+    font-family: $font-family;
   }
 }
 
@@ -44,9 +63,27 @@ $font-family: "Inter Tight", sans-serif;
   margin-top: 10px;
   gap: 15px;
 
+  .button {
+    padding: 10px 20px;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    font-family: $font-family;
+    font-size: 16px;
+    text-align: center;
+    border: none;
+    outline: none;
+    width: 100%;
+    max-width: none;
+  }
+
   .cancelButton {
-    @extend .buttoncancel; 
-    background: #e7eefb; 
+    @extend .buttoncancel;
+    background: #e7eefb;
+  }
+
+  .addButton {
+    background: $button-gradient;
   }
 
   @media (max-width: 480px) {
@@ -54,7 +91,6 @@ $font-family: "Inter Tight", sans-serif;
     gap: 10px;
   }
 }
-
 
 .deleteModalContent {
   background: white;
@@ -72,6 +108,16 @@ $font-family: "Inter Tight", sans-serif;
     font-weight: 600;
     margin-bottom: 10px;
     margin-top: 0;
+    font-family: $font-family;
+  }
+
+  .modalSubTitle {
+    color: #000000;
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 10px;
+    margin-top: 0;
+    font-family: $font-family;
   }
 
   .modalMessage {
@@ -91,18 +137,14 @@ $font-family: "Inter Tight", sans-serif;
     }
 
     .cancelButton {
-      @extend .buttoncancel;  
-      background: #e7eefb; 
+      @extend .buttoncancel;
+      background: #e7eefb;
     }
 
     .deleteButton {
-      @extend .buttondelete; 
-      background: linear-gradient(
-        90deg,
-        #d30707 100%,
-        #f05353 100%
-      ); 
-      color: white; 
+      @extend .buttondelete;
+      background: linear-gradient(90deg, #d30707 100%, #f05353 100%);
+      color: white;
     }
   }
 }
@@ -111,21 +153,35 @@ $font-family: "Inter Tight", sans-serif;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  width: 98%;
   height: 60px;
   padding: 0 20px;
   border-bottom: 1px solid #e0e0e0;
-  position: relative;
+  position: fixed;
+  top: 0;
+  background-color: white;
+  z-index: 100;
 }
 
-.date {
+.date,
+.welcomeMessage {
+  background-color: $date-background-color;
   font-family: $font-family;
   font-size: 16px;
-  color: #333;
+  color: hsla(0, 0%, 0%, 0.54);
+}
+
+.welcomeMessage {
+  font-family: $font-family;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29.04px;
+  letter-spacing: -0.02em;
+  color: #000000;
+  text-align: center;
   position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .mainContainer {
@@ -147,19 +203,6 @@ $font-family: "Inter Tight", sans-serif;
   @media (max-width: 480px) {
     padding: 10px;
   }
-}
-
-.welcomeMessage {
-  font-family: $font-family;
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 29.04px;
-  letter-spacing: -0.02em;
-  color: #000000;
-  text-align: center;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
 }
 
 .layout {
@@ -187,19 +230,17 @@ $font-family: "Inter Tight", sans-serif;
 }
 
 .task-title {
-  color: #333; 
-  font-family: $font-family; 
-  font-size: 24px; 
-  margin: 20px 0; 
+  color: #333;
+  font-family: $font-family;
+  font-size: 24px;
+  margin: 20px 0;
 }
-
-
 
 .button {
   background: $button-gradient;
   width: 100%;
-  max-width: 450px;
-  height: 51px;
+  max-width: 550px;
+  height: 50px;
   border-radius: 8px;
   padding: 16px 24px;
   color: white;
@@ -207,6 +248,9 @@ $font-family: "Inter Tight", sans-serif;
   text-align: center;
   font-size: 16px;
   margin-top: 10px;
+  border: none;
+  outline: none;
+  box-shadow: none;
 
   @media (max-width: 768px) {
     font-size: 14px;
@@ -231,6 +275,7 @@ $font-family: "Inter Tight", sans-serif;
   text-align: center;
   font-size: 16px;
   margin-top: 10px;
+  border: none;
 
   @media (max-width: 768px) {
     font-size: 14px;
@@ -254,6 +299,7 @@ $font-family: "Inter Tight", sans-serif;
   text-align: center;
   font-size: 16px;
   margin-top: 10px;
+  border: none;
 
   @media (max-width: 768px) {
     font-size: 14px;
@@ -267,17 +313,16 @@ $font-family: "Inter Tight", sans-serif;
 }
 
 .todoContainer {
-  background-color:#FFFFFF;
-  ;
+  background-color: #ffffff;
   border-radius: 10px;
   padding: 50px;
   width: 100%;
-  max-width: 400px;
+  max-width: 450px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 1px 5px #EAECF0;
+  box-shadow: 0 1px 5px #eaecf0;
   margin-top: 80px;
 
   @media (max-width: 768px) {
@@ -303,6 +348,9 @@ $font-family: "Inter Tight", sans-serif;
   border-radius: 8px;
   margin-bottom: 10px;
   width: 100%;
+  background: $date-background-color;
+
+  cursor: pointer;
 
   @media (max-width: 768px) {
     padding: 8px;
@@ -315,8 +363,12 @@ $font-family: "Inter Tight", sans-serif;
 }
 
 .taskItem input[type="checkbox"] {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
+  top: 16px;
+  left: 16px;
+  color: #D7DDE9;
+  cursor: pointer;
 }
 
 .taskItem span {
@@ -342,10 +394,13 @@ $font-family: "Inter Tight", sans-serif;
 .completedTask {
   text-decoration: line-through;
   color: #999;
+  cursor: pointer;
 }
 
 .completedTask input[type="checkbox"] {
-  accent-color: #2196f3;
+  accent-color: #A0DCF6;
+  border: 1px solid #0796D3;
+  cursor: pointer;
 }
 
 @media (max-width: 768px) {

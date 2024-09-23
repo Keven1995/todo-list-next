@@ -6,6 +6,12 @@ import { useState } from "react";
 import Modal from "../app/modal/Modal";
 import ModalDelete from "../app/modal/ModalDelete";
 
+const formatTaskName = (task: string) => {
+  return task
+    .replace(/([A-Z])/g, " $1")
+    .replace(/(^\w|\s\w)/g, (m) => m.toUpperCase());
+};
+
 export default function Home() {
   const [tasks, setTasks] = useState<Record<string, boolean>>({
     lavarAsMaos: false,
@@ -46,7 +52,7 @@ export default function Home() {
   const deleteTask = () => {
     if (taskToDelete) {
       const remainingTasks = { ...tasks };
-      delete remainingTasks[taskToDelete]; 
+      delete remainingTasks[taskToDelete];
       setTasks(remainingTasks);
       setTaskToDelete(null);
     }
@@ -55,9 +61,9 @@ export default function Home() {
 
   return (
     <main className={styles.mainContainer}>
-      <Header userName="João" />
+      <Header userName="Marcus" />
       <div className={styles.todoContainer}>
-        <h2 className="task-title">Suas tarefas de hoje</h2>
+        <h2 className={styles.date}>Suas tarefas de hoje</h2>
 
         {Object.keys(tasks).map((task) => (
           <div key={task} className={styles.taskItem}>
@@ -67,7 +73,8 @@ export default function Home() {
               checked={tasks[task]}
               onChange={() => handleCheckboxChange(task)}
             />
-            <label htmlFor={task}>{task.replace(/([A-Z])/g, " $1")}</label>
+
+            <label htmlFor={task}>{formatTaskName(task)}</label>
             <button
               className={styles.deleteButton}
               onClick={() => confirmDeleteTask(task)}
@@ -75,7 +82,7 @@ export default function Home() {
           </div>
         ))}
 
-        <h2>Tarefas finalizadas</h2>
+        <h2 className={styles.date}>Tarefas finalizadas</h2>
 
         {Object.keys(tasks)
           .filter((task) => tasks[task])
@@ -90,17 +97,14 @@ export default function Home() {
                 checked={tasks[task]}
                 onChange={() => handleCheckboxChange(task)}
               />
-              <label htmlFor={task}>{task.replace(/([A-Z])/g, " $1")}</label>
+
+              <label htmlFor={task}>{formatTaskName(task)}</label>
               <button
                 className={styles.deleteButton}
                 onClick={() => confirmDeleteTask(task)}
               ></button>
             </div>
           ))}
-
-        <button className={styles.button} onClick={() => setModalOpen(true)}>
-          Adicionar nova tarefa
-        </button>
 
         <Modal
           isOpen={isModalOpen}
@@ -114,6 +118,9 @@ export default function Home() {
           onDelete={deleteTask}
         />
       </div>
+      <button className={styles.button} onClick={() => setModalOpen(true)}>
+        Adicionar nova tarefa
+      </button>
     </main>
   );
 }

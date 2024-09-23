@@ -21,19 +21,21 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, onAddTask }) => {
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
-        <h2>Adicionar Tarefa</h2>
+        <h2 className={styles.modalTitle}>Nova Tarefa</h2>
+        <p className={styles.modalSubTitle}> Titulo</p>
         <input
           type="text"
           value={taskName}
           onChange={(e) => setTaskName(e.target.value)}
-          placeholder="Nova tarefa"
+          placeholder="Digite"
         />
         <div className={styles.modalButtons}>
+          <button className={styles.cancelButton} onClick={onClose}>
+            Cancelar
+          </button>
+
           <button className={styles.button} onClick={handleAddTask}>
             Adicionar
-          </button>
-          <button className={styles.button} onClick={onClose}>
-            Cancelar
           </button>
         </div>
       </div>
